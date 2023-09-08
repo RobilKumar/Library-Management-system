@@ -2,6 +2,7 @@ package Library.Management.System.LibrarymanagementSystem.Controller;
 
 import Library.Management.System.LibrarymanagementSystem.DTOs.RequestDtos.StudentRequestDto;
 import Library.Management.System.LibrarymanagementSystem.DTOs.RequestDtos.UpdateStudentMobileDto;
+import Library.Management.System.LibrarymanagementSystem.DTOs.ResponseDTos.StudentResponseDto;
 import Library.Management.System.LibrarymanagementSystem.DTOs.ResponseDTos.UpdateStudentResponseDto;
 import Library.Management.System.LibrarymanagementSystem.Exception.StudentNotFoundException;
 import Library.Management.System.LibrarymanagementSystem.Service.impl.StudentService;
@@ -26,7 +27,7 @@ public class StudentController {
     }
 
     @GetMapping("/get")
-    public Student getStudent(@RequestParam("id") int id){
+    public StudentResponseDto getStudent(@RequestParam("id") int id){
         return studentService.getStudent(id);
     }
 

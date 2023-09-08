@@ -2,6 +2,8 @@ package Library.Management.System.LibrarymanagementSystem.Service.impl;
 
 import Library.Management.System.LibrarymanagementSystem.DTOs.RequestDtos.StudentRequestDto;
 import Library.Management.System.LibrarymanagementSystem.DTOs.RequestDtos.UpdateStudentMobileDto;
+import Library.Management.System.LibrarymanagementSystem.DTOs.ResponseDTos.CardResponseDto;
+import Library.Management.System.LibrarymanagementSystem.DTOs.ResponseDTos.StudentResponseDto;
 import Library.Management.System.LibrarymanagementSystem.DTOs.ResponseDTos.UpdateStudentResponseDto;
 import Library.Management.System.LibrarymanagementSystem.Enum.CardStatus;
 import Library.Management.System.LibrarymanagementSystem.Exception.StudentNotFoundException;
@@ -60,14 +62,31 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getStudent(int id) {
+    public StudentResponseDto getStudent(int id) {
        Student student= studentRepository.findById(id).get();
 
-       if(student!=null){
-           return student;
+       StudentResponseDto studentResponseDto= new StudentResponseDto();
+       studentResponseDto.setId(student.getId());
+       studentResponseDto.setMobNo(student.getMobNo());
+       studentResponseDto.setDepartment(student.getDepartment());
+       studentResponseDto.setAge(student.getAge());
+       studentResponseDto.setName(student.getName());
 
-       }
-       return null;
+
+        CardResponseDto cardResponseDto= new CardResponseDto();
+        cardResponseDto.setCardstatus(student.getCard().getCardstatus());
+        cardResponseDto.setId(student.getId());
+        cardResponseDto.setIssueDate(student.getCard().getIssueDate());
+        cardResponseDto.setUpdatedOn(student.getCard().getUpdatedOn());
+        cardResponseDto.setValidTill(student.getCard().getValidTill());
+
+
+        studentResponseDto.setCardResponseDto(cardResponseDto);
+        return studentResponseDto;
+
+
+
+
     }
 
     @Override
